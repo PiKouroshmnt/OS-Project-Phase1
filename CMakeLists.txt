@@ -17,12 +17,12 @@ add_executable(xv6_riscv
         cmake-build-debug/.cmake/api/v1/query/codemodel-v2
         cmake-build-debug/.cmake/api/v1/query/toolchains-v1
         cmake-build-debug/.cmake/api/v1/reply/cache-v2-83ca9bbadac541504747.json
-        cmake-build-debug/.cmake/api/v1/reply/cmakeFiles-v1-5a543dc1d255e5a202ce.json
-        cmake-build-debug/.cmake/api/v1/reply/codemodel-v2-b8c5313e240dd9acb61e.json
+        cmake-build-debug/.cmake/api/v1/reply/cmakeFiles-v1-5dabba04127589b87485.json
+        cmake-build-debug/.cmake/api/v1/reply/codemodel-v2-662cc3952987c20da80e.json
         cmake-build-debug/.cmake/api/v1/reply/directory-.-Debug-d0094a50bb2071803777.json
-        cmake-build-debug/.cmake/api/v1/reply/index-2024-10-25T08-40-06-0421.json
-        cmake-build-debug/.cmake/api/v1/reply/target-xv6_riscv-Debug-56cd4708d54faaf1ad8c.json
-        cmake-build-debug/.cmake/api/v1/reply/toolchains-v1-75b3ebf9db306366a2d9.json
+        cmake-build-debug/.cmake/api/v1/reply/index-2024-10-25T08-43-58-0798.json
+        cmake-build-debug/.cmake/api/v1/reply/target-xv6_riscv-Debug-4b317d3a21a7cb0eefe3.json
+        cmake-build-debug/.cmake/api/v1/reply/toolchains-v1-09043c5d85d454ae2666.json
         cmake-build-debug/Testing/Temporary/LastTest.log
         cmake-build-debug/build.ninja
         cmake-build-debug/cmake_install.cmake
@@ -139,6 +139,7 @@ add_executable(xv6_riscv
         user/_rm
         user/_sh
         user/_stressfs
+        user/_testChp
         user/_usertests
         user/_wc
         user/_zombie
@@ -215,6 +216,11 @@ add_executable(xv6_riscv
         user/stressfs.d
         user/stressfs.o
         user/stressfs.sym
+        user/testChp.asm
+        user/testChp.c
+        user/testChp.d
+        user/testChp.o
+        user/testChp.sym
         user/ulib.c
         user/ulib.d
         user/ulib.o
@@ -249,4 +255,5 @@ add_executable(xv6_riscv
         fs.img
         LICENSE
         Makefile
-        README)
+        README
+        kernel/child_processes.h)

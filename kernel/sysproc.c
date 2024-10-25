@@ -91,3 +91,20 @@ sys_uptime(void)
   release(&tickslock);
   return xticks;
 }
+
+uint64
+child_processes(void)
+{
+    struct child_processes* children;
+    struct child_processes kchildren;
+    argaddr(0, (uint64 *)&children);
+//    children->count = 0;
+    struct proc *p = myproc();
+//    kchildren = *children;
+    copyin(p->pagetable, (char *) &kchildren, (uint64)children,sizeof(kchildren));
+//    acquire(&tickslock);
+    find_children(&kchildren,p);
+//    release(&tickslock);
+    copyout(p->pagetable,(uint64)children,(char *)&kchildren,sizeof(kchildren));
+    return 0;
+}

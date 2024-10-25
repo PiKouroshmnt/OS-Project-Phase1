@@ -693,3 +693,25 @@ procdump(void)
     printf("\n");
   }
 }
+
+void
+find_children(struct child_processes *chp , struct proc *parent)
+{
+    struct proc *p;
+
+    for(p = proc; p < &proc[NPROC];p++){
+        acquire(&p->lock);
+        if (p->parent == parent){
+            strncpy(chp->processes[chp->count].name,p->name,16);
+            chp->processes[chp->count].pid = p->pid;
+            chp->processes[chp->count].ppid = parent->pid;
+            chp->processes[chp->count].state = p->state;
+            chp->count++;
+            release(&p->lock);
+
+            find_children(chp,p);
+        } else {
+            release(&p->lock);
+        }
+    }
+}
