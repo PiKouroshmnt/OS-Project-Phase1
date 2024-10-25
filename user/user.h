@@ -1,3 +1,5 @@
+#include "../kernel/types.h"
+
 struct stat;
 struct child_processes;
 
