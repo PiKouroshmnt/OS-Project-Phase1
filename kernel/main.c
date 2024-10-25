@@ -3,6 +3,9 @@
 #include "memlayout.h"
 #include "riscv.h"
 #include "defs.h"
+#include "report_traps.h"
+
+struct global_data internal_report_list = {0};
 
 volatile static int started = 0;
 

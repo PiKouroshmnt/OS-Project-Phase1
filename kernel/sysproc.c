@@ -98,13 +98,26 @@ child_processes(void)
     struct child_processes* children;
     struct child_processes kchildren;
     argaddr(0, (uint64 *)&children);
-//    children->count = 0;
+
     struct proc *p = myproc();
-//    kchildren = *children;
+
     copyin(p->pagetable, (char *) &kchildren, (uint64)children,sizeof(kchildren));
-//    acquire(&tickslock);
+
     find_children(&kchildren,p);
-//    release(&tickslock);
+
     copyout(p->pagetable,(uint64)children,(char *)&kchildren,sizeof(kchildren));
     return 0;
+}
+
+uint64
+report_traps(void)
+{
+    struct report_traps* rprt;
+    struct report_traps krprt;
+    argaddr(0,(uint64 *)&rprt);
+    struct proc *p = myproc();
+    copyin(p->pagetable, (char*) &krprt, (uint64)rprt, sizeof(krprt));
+    int err = get_reports(&krprt);
+    copyout(p->pagetable,(uint64)rprt,(char *)&krprt, sizeof(krprt));
+    return err;
 }

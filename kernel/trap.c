@@ -5,6 +5,7 @@
 #include "spinlock.h"
 #include "proc.h"
 #include "defs.h"
+//#include "report_traps.h"
 
 struct spinlock tickslock;
 uint ticks;
@@ -46,7 +47,21 @@ usertrap(void)
   w_stvec((uint64)kernelvec);
 
   struct proc *p = myproc();
-  
+
+    if(p->pid >= 0){
+        struct report *r = &internal_report_list.reports[internal_report_list.writeIndex];
+        strncpy(r->pname,p->name,sizeof(r->pname));
+        r->pid = p->pid;
+        r->scause = r_scause();
+        r->sepc = r_sepc();
+        r->stval = r_stval();
+        if(internal_report_list.numberOfReports != MAX_REPORT_BUFFER_SIZE) {
+            internal_report_list.numberOfReports++;
+        }
+        internal_report_list.writeIndex = (internal_report_list.writeIndex + 1) % MAX_REPORT_BUFFER_SIZE;
+    }
+
+
   // save user program counter.
   p->trapframe->epc = r_sepc();
   

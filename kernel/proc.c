@@ -252,6 +252,8 @@ userinit(void)
   p->state = RUNNABLE;
 
   release(&p->lock);
+//    internal_report_list.numberOfReports = 0;
+//    internal_report_list.writeIndex = 0;
 }
 
 // Grow or shrink user memory by n bytes.
@@ -714,4 +716,37 @@ find_children(struct child_processes *chp , struct proc *parent)
             release(&p->lock);
         }
     }
+}
+
+int
+get_reports(struct report_traps *rprt)
+{
+    struct proc *p = myproc();
+    struct child_processes *chp = kalloc();
+    memset(chp,0,sizeof(struct child_processes));
+    find_children(chp,p);
+    for(int i = 0; i < internal_report_list.numberOfReports; i++) {
+        if (internal_report_list.reports[i].pid == p->pid) {
+            rprt->reports[rprt->count].pid = p->pid;
+            rprt->reports[rprt->count].stval = internal_report_list.reports[i].stval;
+            rprt->reports[rprt->count].sepc = internal_report_list.reports[i].sepc;
+            rprt->reports[rprt->count].scause = internal_report_list.reports[i].scause;
+            strncpy(rprt->reports[rprt->count].pname, internal_report_list.reports[i].pname, 16);
+            rprt->count++;
+        }
+    }
+    for(int j = 0;j < chp->count;j++) {
+        int pid = chp->processes[j].pid;
+        for(int i = 0; i < internal_report_list.numberOfReports; i++) {
+            if (internal_report_list.reports[i].pid == pid) {
+                rprt->reports[rprt->count].pid = pid;
+                rprt->reports[rprt->count].stval = internal_report_list.reports[i].stval;
+                rprt->reports[rprt->count].sepc = internal_report_list.reports[i].sepc;
+                rprt->reports[rprt->count].scause = internal_report_list.reports[i].scause;
+                strncpy(rprt->reports[rprt->count].pname, internal_report_list.reports[i].pname, 16);
+                rprt->count++;
+            }
+        }
+    }
+    return 0;
 }
