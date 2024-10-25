@@ -8,6 +8,8 @@ struct spinlock;
 struct sleeplock;
 struct stat;
 struct superblock;
+struct proc_info;
+struct child_processes;
 
 // bio.c
 void            binit(void);
