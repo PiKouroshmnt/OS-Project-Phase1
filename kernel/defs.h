@@ -11,6 +11,7 @@ struct superblock;
 struct proc_info;
 struct child_processes;
 struct report;
+struct global_data;
 struct report_traps;
 
 // bio.c
@@ -111,6 +112,7 @@ int             either_copyout(int user_dst, uint64 dst, void *src, uint64 len);
 int             either_copyin(void *dst, int user_src, uint64 src, uint64 len);
 void            procdump(void);
 void            find_children(struct child_processes *chp, struct proc *parent);
+int             get_reports(struct report_traps *rprt);
 
 // swtch.S
 void            swtch(struct context*, struct context*);
