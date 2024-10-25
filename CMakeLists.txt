@@ -257,4 +257,5 @@ add_executable(xv6_riscv
         Makefile
         README
         kernel/child_processes.h
-        kernel/report_traps.h)
+        kernel/report_traps.h
+        kernel/global.h)
