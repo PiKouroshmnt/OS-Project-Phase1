@@ -1,6 +1,6 @@
 #include "types.h"
 
-#define MAX_REPORT_BUFFER_SIZE 10
+#define MAX_REPORT_BUFFER_SIZE 20
 
 struct report {
     char pname[16];
@@ -10,13 +10,15 @@ struct report {
     uint64 stval;
 };
 
-struct {
+struct global_data{
     struct report reports[MAX_REPORT_BUFFER_SIZE];
     int numberOfReports;
     int writeIndex;
-} _internal_report_list;
+};
 
 struct report_traps {
     struct report reports[MAX_REPORT_BUFFER_SIZE];
     int count;
 };
+
+extern struct global_data internal_report_list;
