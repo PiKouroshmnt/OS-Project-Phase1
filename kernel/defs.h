@@ -10,6 +10,8 @@ struct stat;
 struct superblock;
 struct proc_info;
 struct child_processes;
+struct report;
+struct report_traps;
 
 // bio.c
 void            binit(void);

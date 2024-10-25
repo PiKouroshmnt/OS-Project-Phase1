@@ -108,3 +108,10 @@ child_processes(void)
     copyout(p->pagetable,(uint64)children,(char *)&kchildren,sizeof(kchildren));
     return 0;
 }
+
+uint64
+report_traps(void)
+{
+    //body
+    return 0;
+}
